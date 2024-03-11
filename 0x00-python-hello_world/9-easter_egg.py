@@ -1,1 +1,2 @@
-print("The Zen of Python\n")  # 25 characters
+#!/usr/bin/python3
+import this
