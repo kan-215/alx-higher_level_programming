@@ -1,26 +1,58 @@
-#include "lists.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-/**
- * check_cycle -the function checks if a linked list contains a cycle
- * @list:the  linked list to be checked
- *
- * Return: 1 if there us no cycle, 1 if there is a cycle
- */
-int check_cycle(listint_t *list)
-{
-	listint_t *slow = list;
-	listint_t *fast = list;
 
-	if (!list)
-		return (0);
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
 
-	while (slow && fast && fast->next)
-	{
-		slow = slow->next;
-		fast = fast->next->next;
-		if (slow == fast)
-			return (1);
-	}
+bool hasCycle(struct ListNode *head) {
+    if (head == NULL || head->next == NULL)
+        return false;
 
-	return (0);
+    struct ListNode *slow = head;
+    struct ListNode *fast = head->next;
+
+    while (fast != NULL && fast->next != NULL) {
+        if (slow == fast)
+            return true;
+
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return false;
+}
+
+
+struct ListNode* newNode(int val) {
+    struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+
+int main() {
+    struct ListNode* head = newNode(1);
+    head->next = newNode(2);
+    head->next->next = newNode(3);
+    head->next->next->next = newNode(4);
+    head->next->next->next->next = head;
+
+    if (hasCycle(head))
+        printf("Linked list contains a cycle.\n");
+    else
+        printf("Linked list does not contain a cycle.\n");
+
+   
+    struct ListNode* current = head;
+    while (current != NULL) {
+        struct ListNode* temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    return 0;
 }
