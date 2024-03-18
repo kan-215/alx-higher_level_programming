@@ -3,6 +3,6 @@
 
 
 def print_list_integer(my_list=[]):
-    """Take in a list and print all int."""
+    """Takes in a list and prints all integers."""
     for i in my_list:
         print(('{}').format(i))
