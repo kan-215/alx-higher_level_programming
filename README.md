@@ -1,2 +1,1 @@
-# alx-higher_level_programming
-repository for alx_higher_level_programming
+This is the README file for the projects in ALX hihger level programming
