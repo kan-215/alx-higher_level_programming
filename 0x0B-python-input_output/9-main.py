@@ -1,4 +1,3 @@
-guillaume@ubuntu:~/0x0B$ cat 9-main.py 
 #!/usr/bin/python3
 Student = __import__('9-student').Student
 
