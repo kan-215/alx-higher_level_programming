@@ -1,2 +1,2 @@
-#!/usr/bin/bash
+-- List all the database of MySQL server.
 SHOW DATABASES;
