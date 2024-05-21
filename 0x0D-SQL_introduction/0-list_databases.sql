@@ -1,2 +1,2 @@
-1-create_database_if_missing.sql
+#!/usr/bin/bash
 SHOW DATABASES;
