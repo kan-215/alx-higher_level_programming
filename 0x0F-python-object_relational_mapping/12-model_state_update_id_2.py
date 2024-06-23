@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Changes the name of a State object from the database hbtn_0e_6_usa"""
+"""The script changes the name of a State object from the database hbtn_0e_6_usa"""
 
 import sys
 from sqlalchemy import create_engine
@@ -10,18 +10,17 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         sys.exit(1)
 
-    # Create engine to connect to the database
+    # Create a connection engine to connect to the database
     engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
                            .format(sys.argv[1], sys.argv[2], sys.argv[3]))
 
-    # Bind the engine to the Base class
     Base.metadata.create_all(engine)
 
-    # Create a session
+    # Create a new session
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Query for the State object with id=2
+    # Query to check for the State object where id=2
     state_to_update = session.query(State).filter_by(id=2).first()
 
     # Check if the state exists

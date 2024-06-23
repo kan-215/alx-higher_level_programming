@@ -11,14 +11,12 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         sys.exit(1)
 
-    # Create engine to connect to the database
+    # Create a connection engine to connect to the database
     engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
                            .format(sys.argv[1], sys.argv[2], sys.argv[3]))
 
-    # Bind the engine to the Base class
     Base.metadata.create_all(engine)
 
-    # Create a session
     Session = sessionmaker(bind=engine)
     session = Sessio()
     for instance in (session.query(State.name, City.id, City.name)
