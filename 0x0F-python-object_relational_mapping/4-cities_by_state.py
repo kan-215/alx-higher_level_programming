@@ -1,28 +1,31 @@
-1-filter_states.py
 #!/usr/bin/python3
 """
-The script lists all cities from
-the database `hbtn_0e_4_usa`.
+    script lists all cities from the database hbtn_0e_4_usa
 """
+import MySQLdb
+import sys
 
-import MySQLdb as db
-from sys import argv
 
-if __name__ == '__main__':
-    """
-    Access the database and get the cities
-    from the database.
-    """
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        sys.exit(1)
 
-    db_connect = db.connect(host="localhost", port=3306,
-                            user=argv[1], passwd=argv[2], db=argv[3])
+    try:
+        db = MySQLdb.connect(host="localhost", user=sys.argv[1],
+                             password=sys.argv[2], database=sys.argv[3],
+                             port=3306)
+        cursor = db.cursor()
 
-    with db_connect.cursor() as db_cursor:
-        db_cursor.execute("SELECT cities.id, cities.name, states.name \
-                                FROM cities JOIN states ON cities.state_id \
-                                = states.id ORDER BY cities.id ASC")
-        rows_selected = db_cursor.fetchall()
+        cursor.execute("SELECT * FROM cities ORDER BY cities.id ASC")
 
-    if rows_selected is not None:
-        for row in rows_selected:
-            print(row)
+        cities = cursor.fetchall()
+
+        for city in cities:
+            print(city)
+
+        cursor.close()
+        db.close()
+
+    except MySQLdb.Error as e:
+        print("Error connecting to MySQL: ", e)
+        sys.argv(1)
