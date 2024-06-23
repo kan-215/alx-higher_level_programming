@@ -1,33 +1,29 @@
 #!/usr/bin/python3
-""" Lists all State objects that contain the
-    letter 'a' from the database hbtn_0e_6_usa
+""" lists all State objects
+that contain the letter `a`
+from the database `hbtn_0e_6_usa`.
 """
 
-import sys
+from sys import argv
+from model_state import State, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model_state import Base, State
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        sys.exit(1)
+    """
+    Access to the database and get a state
+    from the database.
+    """
 
-    # Create a connection engine to connect to the database
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
-                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
+    db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
+        argv[1], argv[2], argv[3])
 
-    Base.metadata.create_all(engine)
-
-    # Create a new session
+    engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
+
     session = Session()
 
-    # Query for State objects containing the letter 'a'
-    states_with_a = session.query(State).filter(State.name.like('%a%')).order_by(State.id).all()
-
-    # Output the results
-    for state in states_with_a:
-        print(f"{state.id}: {state.name}")
-
-    # Close the session
-    session.close()
+    states = session.query(State).filter(State.name.contains('a'))
+    if states is not None:
+        for state in states:
+            print('{0}: {1}'.format(state.id, state.name))
