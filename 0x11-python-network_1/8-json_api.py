@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" This script sends a POST request to http://0.0.0.0:5000/search_user
+""" a script that  sends a POST request to http://0.0.0.0:5000/search_user
     with a letter as a parameter.
 """
 

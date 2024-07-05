@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""handles request response errors"""
+"""A script that handles request response errors"""
 import sys
 import requests
 

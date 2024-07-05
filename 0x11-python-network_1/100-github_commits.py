@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-""" This script retrieves the 10 most recent commits from a specified
-    repository by a given owner using the GitHub API.
+""" A python script to retrieve the 10 most recent commits from a specified git 
+    repo by a given owner using the GitHub API
 """
 
 import requests
